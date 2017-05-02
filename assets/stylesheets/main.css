@@ -49,7 +49,7 @@ table {
 
 /*
   ========================================
-  Box Sizing
+  Box Sizing & Container
   ========================================
 */
 
@@ -61,11 +61,19 @@ table {
           box-sizing: border-box;
 }
 
+.container {
+  margin: 24px 16px;
+}
+
 /*
   ========================================
   Picture and Bio
   ========================================
 */
+
+html {
+  -webkit-font-smoothing: antialiased;
+}
 
 body {
   background: #3b5e8c;
@@ -76,8 +84,8 @@ body {
 h1 {
   color: #f2c744;
   font: 700 22px/32px Futura, Helvetica, Arial, sans-serif;
-  margin-top: 24px;
   margin-bottom: 16px;
+  margin-top: 24px;
 }
 
 p {
@@ -93,11 +101,7 @@ a:hover {
   color: #fff;
 }
 
-.container {
-  margin: 24px 16px 0px 16px;
-}
-
-.container img {
+img {
   max-width: 100%;
 }
 
@@ -107,18 +111,13 @@ a:hover {
   ========================================
 */
 
-footer {
-  margin-left: 16px;
-  margin-bottom: 24px;
-}
-
 .social li, .social span {
   display: inline-block;
 }
 
 .social span {
-  margin-right: 16px;
   height: 20px;
+  margin-right: 16px;
   width: 19px;
 }
 
@@ -153,4 +152,38 @@ footer {
 
 .email:hover {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='19' height='20' viewBox='0 0 19 20' fill='%23f2c744'%3E%3Cpath d='M15.3 0.7C17.3 0.7 18.9 2.3 18.9 4.2L18.9 16C18.9 18 17.3 19.6 15.3 19.6L3.5 19.6C1.6 19.6 0 18 0 16L0 4.2C0 2.3 1.6 0.7 3.5 0.7L15.3 0.7ZM15.7 13.7L15.7 8.3C15.5 8.6 15.2 8.8 14.9 9 13.8 9.8 12.6 10.5 11.4 11.3 10.9 11.7 10.2 12.1 9.4 12.1 8.7 12.1 8 11.7 7.4 11.3 6.3 10.5 5.1 9.8 3.9 9 3.6 8.8 3.4 8.5 3.1 8.3L3.1 13.7C3.1 14.3 3.7 14.9 4.3 14.9L14.5 14.9C15.2 14.9 15.7 14.3 15.7 13.7ZM15.7 6.6C15.7 6 15.2 5.4 14.5 5.4L4.3 5.4C3.7 5.4 3.1 6 3.1 6.6 3.1 7.3 3.8 8 4.3 8.3 5.4 9.1 6.5 9.7 7.6 10.4 8.1 10.8 8.9 11.3 9.4 11.3 10 11.3 10.8 10.8 11.2 10.4 12.3 9.7 13.4 9 14.5 8.3 15 8 15.7 7.3 15.7 6.6Z'/%3E%3C/svg%3E");
+}
+
+/*
+  ========================================
+  Styles for Large Screens
+  ========================================
+*/
+
+@media screen and (min-width: 1024px) {
+  .container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 960px;
+  }
+
+  .left {
+    float: left;
+    width: 50%;
+  }
+
+  .right {
+    float: right;
+    padding-left: 32px;
+    width: 50%;
+  }
+
+  h1 {
+    margin-top: 0;
+  }
+
+  footer {
+    margin-left: 50%;
+    padding-left: 32px;
+  }
 }
