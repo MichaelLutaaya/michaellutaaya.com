@@ -67,6 +67,36 @@ table {
 
 /*
   ========================================
+  Google Fonts
+  ========================================
+*/
+
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 900;
+  src: local('Nunito Black'), local('Nunito-Black'), url(https://fonts.gstatic.com/s/nunito/v8/Cj2facSP9LFhbctU5GJ2WJBw1xU1rKptJj_0jans920.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3ZBw1xU1rKptJj_0jans920.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
+@font-face {
+  font-family: 'Open Sans Semibold';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(https://fonts.gstatic.com/s/opensans/v13/MTP_ySUJH_bn48VBG8sNShampu5_7CjHW5spxoeN3Vs.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
+/*
+  ========================================
   Picture and Bio
   ========================================
 */
@@ -78,12 +108,12 @@ html {
 body {
   background: #3b5e8c;
   color: #fff;
-  font: 17px/24px Avenir-Roman, Helvetica, Arial, sans-serif;
+  font: 17px/24px Avenir-Roman, "Open Sans", Helvetica, Arial, sans-serif;
 }
 
 h1 {
   color: #f2c744;
-  font: 700 22px/32px Futura, Helvetica, Arial, sans-serif;
+  font: 700 22px/32px Futura, Nunito, Helvetica, Arial, sans-serif;
   margin-bottom: 16px;
   margin-top: 24px;
 }
@@ -94,7 +124,7 @@ p {
 
 a {
   color: #f2c744;
-  font-family: Avenir-Heavy;
+  font-family: Avenir-Heavy, "Open Sans Semibold", Helvetica, Arial, sans-serif;
 }
 
 a:hover {
