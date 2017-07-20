@@ -122,12 +122,12 @@ p {
   margin-bottom: 24px;
 }
 
-a {
+a:link, a:visited {
   color: #f2c744;
   font-family: Avenir-Heavy, "Open Sans Semibold", Helvetica, Arial, sans-serif;
 }
 
-a:hover {
+a:active {
   color: #fff;
 }
 
@@ -215,5 +215,11 @@ img {
   footer {
     margin-left: 50%;
     padding-left: 32px;
+  }
+}
+
+@media(hover: hover) {
+  a:hover {
+    color: #fff;
   }
 }
