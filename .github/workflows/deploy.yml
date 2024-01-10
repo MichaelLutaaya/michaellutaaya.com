@@ -1,0 +1,45 @@
+name: "🚀 Deploy michaellutaaya.com"
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: deploy-michaellutaaya
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: "🚚 Upload files from GitHub to remote server"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "🛒 Checkout main branch"
+        uses: actions/checkout@v4
+      - name: "🔑 Create empty file for SSH key"
+        run:  install -m 600 -D /dev/null ~/.ssh/id_ed25519
+      - name: "🔐 Write private key to file"
+        run:  echo "${{ secrets.PRIVATE_SSH_KEY }}" > ~/.ssh/id_ed25519
+      - name: "👍 Write known hosts to file"
+        run:  echo "${{ secrets.KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+      - name: "🚚 Transfer files to remote server"
+        run:  |
+          rsync -a --stats --delete \
+            --exclude-from=.rsyncignore \
+            --exclude-from=.gitignore \
+            ./ "${{ secrets.REMOTE_USER }}"@"${{ secrets.REMOTE_HOST }}":/var/www/michaellutaaya.com/html
+  purge-cache:
+    name: "🔥 Purge Cloudflare cache"
+    runs-on: ubuntu-latest
+    needs: [deploy]
+    steps:
+      - name: "🔥 Purge everything"
+        run:  |
+          curl -f -X POST \
+          --url "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_IDENTIFIER }}/purge_cache" \
+          -H 'Content-Type: application/json' \
+          -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}"
+          -d '{"purge_everything": true}'
