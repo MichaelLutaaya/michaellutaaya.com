@@ -31,6 +31,8 @@ jobs:
           Host *
             IdentityFile ~/.ssh/id_ed25519
           END
+      - name: "➕ Add key to SSH agent"
+        run:  eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519
       - name: "🚚 Transfer files to remote server"
         run:  |
           rsync -vvv -a --stats --delete \
