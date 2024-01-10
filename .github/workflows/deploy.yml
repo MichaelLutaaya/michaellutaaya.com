@@ -33,7 +33,7 @@ jobs:
           END
       - name: "🚚 Transfer files to remote server"
         run:  |
-          rsync -v -a --stats --delete \
+          rsync -vvv -a --stats --delete \
             --exclude-from=.rsyncignore \
             --exclude-from=.gitignore \
             ./ "${{ secrets.REMOTE_USER }}"@"${{ secrets.REMOTE_HOST }}":/var/www/michaellutaaya.com/html
