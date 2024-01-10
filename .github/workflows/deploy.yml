@@ -25,6 +25,12 @@ jobs:
         run:  echo "${{ secrets.PRIVATE_SSH_KEY }}" > ~/.ssh/id_ed25519
       - name: "👍 Write known hosts to file"
         run:  echo "${{ secrets.KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+      - name: "⚙️ Configure SSH"
+        run:  |
+          cat >>~/.ssh/config <<END
+          Host *
+            IdentityFile ~/.ssh/id_ed25519
+          END
       - name: "🚚 Transfer files to remote server"
         run:  |
           rsync -a --stats --delete \
