@@ -1,5 +1,8 @@
 name: "🚀 Deploy michaellutaaya.com"
 
+env:
+  SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+
 on:
   workflow_dispatch:
   push:
@@ -31,8 +34,14 @@ jobs:
           Host *
             IdentityFile ~/.ssh/id_ed25519
           END
-      - name: "➕ Add key to SSH agent"
-        run:  eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519
+      - name: "➕ Add key and passphrase to SSH agent"
+        env:
+          SSH_PASSPHRASE: ${{ secrets.SSH_PASSPHRASE }}
+          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_SSH_KEY }}
+        run:  |
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          echo 'echo $SSH_PASSPHRASE' > ~/.ssh_askpass && chmod +x ~/.ssh_askpass
+          echo "$SSH_PRIVATE_KEY" | tr -d '\r' | DISPLAY=None SSH_ASKPASS=~/.ssh_askpass ssh-add - >/dev/null
       - name: "🚚 Transfer files to remote server"
         run:  |
           rsync -vvv -a --stats --delete \
