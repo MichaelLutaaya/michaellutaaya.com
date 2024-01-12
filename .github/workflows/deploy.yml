@@ -24,7 +24,7 @@ jobs:
       - name: "🛒 Checkout main branch"
         uses: actions/checkout@v4
       - name: "👍 Write known hosts to file"
-        run:  echo "${{ secrets.KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+        run:  mkdir -p ~/.ssh && echo "${{ secrets.KNOWN_HOSTS }}" > ~/.ssh/known_hosts
       - name: "➕ Add key and passphrase to SSH agent"
         env:
           SSH_PASSPHRASE: ${{ secrets.SSH_PASSPHRASE }}
