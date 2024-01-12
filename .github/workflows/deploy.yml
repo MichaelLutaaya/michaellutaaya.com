@@ -1,5 +1,6 @@
 name: "🚀 Deploy michaellutaaya.com"
 
+# https://stackoverflow.com/a/69341682
 env:
   SSH_AUTH_SOCK: /tmp/ssh_agent.sock
 
@@ -22,18 +23,8 @@ jobs:
     steps:
       - name: "🛒 Checkout main branch"
         uses: actions/checkout@v4
-      - name: "🔑 Create empty file for SSH key"
-        run:  install -m 600 -D /dev/null ~/.ssh/id_ed25519
-      - name: "🔐 Write private key to file"
-        run:  echo "${{ secrets.PRIVATE_SSH_KEY }}" > ~/.ssh/id_ed25519
       - name: "👍 Write known hosts to file"
         run:  echo "${{ secrets.KNOWN_HOSTS }}" > ~/.ssh/known_hosts
-      - name: "⚙️ Configure SSH"
-        run:  |
-          cat >>~/.ssh/config <<END
-          Host *
-            IdentityFile ~/.ssh/id_ed25519
-          END
       - name: "➕ Add key and passphrase to SSH agent"
         env:
           SSH_PASSPHRASE: ${{ secrets.SSH_PASSPHRASE }}
@@ -44,7 +35,7 @@ jobs:
           echo "$SSH_PRIVATE_KEY" | tr -d '\r' | DISPLAY=None SSH_ASKPASS=~/.ssh_askpass ssh-add - >/dev/null
       - name: "🚚 Transfer files to remote server"
         run:  |
-          rsync -vvv -a --stats --delete \
+          rsync -a --stats --delete \
             --exclude-from=.rsyncignore \
             --exclude-from=.gitignore \
             ./ "${{ secrets.REMOTE_USER }}"@"${{ secrets.REMOTE_HOST }}":/var/www/michaellutaaya.com/html
