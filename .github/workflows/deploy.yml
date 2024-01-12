@@ -58,5 +58,5 @@ jobs:
           curl -f -X POST \
           --url "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_IDENTIFIER }}/purge_cache" \
           -H 'Content-Type: application/json' \
-          -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}"
+          -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
           -d '{"purge_everything": true}'
